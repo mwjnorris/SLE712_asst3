@@ -1,3 +1,4 @@
+#Section 1
 #GENE_EXPRESION CODE
 
 #Read in File
@@ -25,6 +26,8 @@ nrow(Ave.less.ten)
 #Create pairs plot
 pairs(Gene.Expression[,1:2],main="Gene Expression Pairs Plot")
 
+
+#Section 2
 #GROWTH_DATA CODE
 
 #read in file
