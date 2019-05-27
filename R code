@@ -1,0 +1,55 @@
+#GENE_EXPRESION CODE
+
+#Read in File
+Gene.Expression<-read.table("https://github.com/markziemann/SLE712_files/blob/master/week10_files/gene_expression.tsv?raw=true",
+              header=T,row.names=1)
+
+#Generate Mean Column
+Gene.Expression$Mean<-(Gene.Expression$SRR5150592+Gene.Expression$SRR5150593)/2
+
+#Order data
+Highest.Mean<-Gene.Expression[order(-Gene.Expression$Mean),]
+
+#Determine genes with average <10
+Ave.less.ten<-subset(Gene.Expression,Mean<10)
+
+#Display data with added mean column
+head(Gene.Expression)
+
+#Display 10 highest means
+head(Highest.Mean,n=10)
+
+#Display Number of Genes with average <10
+nrow(Ave.less.ten)
+
+#Create pairs plot
+pairs(Gene.Expression[,1:2],main="Gene Expression Pairs Plot")
+
+#GROWTH_DATA CODE
+
+#read in file
+Growth.Data<-read.table("https://github.com/markziemann/SLE712_files/raw/master/week10_files/growth_data.csv",
+                        header=T,sep=",")
+
+
+#Separating by region
+northeast<-Growth.Data[which(Growth.Data$Site=='northeast'),]
+southwest<-Growth.Data[which(Growth.Data$Site=='southwest'),]
+
+#Calculating Mean and SD
+
+#Northeast
+colMeans(northeast[,c(3,6)])
+apply(northeast[,c(3,6)],2,sd)
+
+#Southwest
+colMeans(southwest[,c(3,6)])
+apply(southwest[,c(3,6)],2,sd)
+
+#Producing Boxplot
+boxplot(northeast$Circumf_1999_cm,northeast$Circumf_2019_cm,
+        southwest$Circumf_1999_cm,southwest$Circumf_2019_cm,
+        main="Tree Circumference in Two Locations",
+        ylab="Tree Circumference",
+        xlab="Tree Location",
+        names = c("Northeast 1999","Northeast 2019","Southwest 1999","Southwest 2019"))
